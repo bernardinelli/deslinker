@@ -1,6 +1,6 @@
 ### linker
 
-This repository contains software designed for linking single-night transients transients into solar system orbits using Dark Energy Survey data. The algorithms are described in [Bernardinelli et al 2020 ApJS 247 32](https://iopscience.iop.org/article/10.3847/1538-4365/ab6bd8). 
+This repository contains software designed for linking single-night transients found in the Dark Energy Survey data into solar system orbits. The algorithms are described in [Bernardinelli et al 2020 ApJS 247 32](https://iopscience.iop.org/article/10.3847/1538-4365/ab6bd8). 
 
 The Python software presented here also relies heavily on the C++ package [orbitspp](https://github.com/gbernstein/orbitspp). After installation, an environment variable `ORBITSPP` should point to this software.
 
