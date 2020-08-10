@@ -1,0 +1,8 @@
+numpy==1.18.5
+skyfield==1.16
+astropy==4.0
+vaex_jupyter==0.5.2
+scipy==1.1.0
+numba==0.48.0
+vaex==3.0.0
+pixmappy==1.0.0
