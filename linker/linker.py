@@ -74,7 +74,7 @@ def pair_finder(exposures, gamma, dgamma, coord, output):
 			print("Loading previously saved pairs")
 			pairids = np.load('triplets/' + output.split('_')[0] + '/' + output + '_pairs.npy')
 
-		if len(pairids) == 0:
+		if pairids.shape[-1] == 0:
 			return det, None
 		print("Computing parameters")
 		pairs = pp.compute_velocities(det, pairids, coord, gamma, dgamma, exp) 
@@ -86,6 +86,7 @@ def pair_finder(exposures, gamma, dgamma, coord, output):
 
 	## make sure vaex dataframe is out-of-memory!
 	pairs = vaex.open('triplets/' + output.split('_')[0] + '/' + output + '_pairs.hdf5')
+	assert 'DELTA_T' in pairs.columns, ('HDF5 file may be corrupted. It might be useful to restart {}'.format(output))
 	return det, pairs
 
 
