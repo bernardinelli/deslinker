@@ -83,6 +83,11 @@ if __name__ == '__main__':
 	exposure_list = exposure_list[np.isin(exposure_list['EXPNUM'], exposures)]
 	print("Reducing the catalog")
 	catalog = catalog[np.isin(catalog['EXPNUM'], exposures)]
+	if len(catalog) == 0:
+		print('No exposures to check!')
+		t = tb.Table(names=('ORBITID', 'TRANSIENTID'))
+		t.write('triplets/' + output.split('_')[0] + '/' + output + '_triplets.fits')
+		sys.exit()
 
 	linker(catalog, exposure_list, output, gamma, dgamma, ra_center, dec_center, mjd0)
 
