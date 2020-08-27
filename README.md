@@ -7,7 +7,7 @@ The Python software presented here also relies heavily on the C++ package [orbit
 
 
 #### Usage
-The main script, `linker_driver.py`, requires a configuration file (see `examples/example.ini`), which points to the required catalogs as well as defines the search parameters. Two environment variables, `CHUNK` (0 or 1) and `CHUNKSIZE` can change the behavior of the triplet finder step (to split the number of pairs checked at any given time, reducing RAM usage).  
+The main script, `linker_driver.py`, requires a configuration file (see `examples/example.ini`), which points to the required catalogs as well as defines the search parameters. Two environment variables, `SUBSPLIT` (0 or 1) and `CHUNKSIZE` can change the behavior of the triplet finder step (to split the number of pairs checked at any given time, reducing RAM usage).  
 
 
 Given a tuple (`RA_0`, `Dec_0`, `t_0`) and an inverse distance bin `gamma_0`, with width `delta gamma`, the process is as follows:
