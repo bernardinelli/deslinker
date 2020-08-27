@@ -154,6 +154,8 @@ def find_pairs(exposures, gamma, dgamma):
 
 		del exposures[keys[i]].tree_0, exposures[keys[i]].tree_p, exposures[keys[i]].tree_m
 	#print(pairs)
+	if len(pairs) == 0:
+		return np.array([])
 	pp = np.hstack(pairs)
 	return np.array(pp).astype('int32')
 					
