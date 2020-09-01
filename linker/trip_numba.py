@@ -1,13 +1,13 @@
 import numpy as np 
 
 import numba 
-from numba.pycc import CC
+#from numba.pycc import CC
 
-cc = CC('triplet_parallelogram')
+#cc = CC('triplet_parallelogram')
 # Uncomment the following line to print out the compilation steps
-cc.verbose = True
+#cc.verbose = True
 
-@cc.export('triplet_parallelogram', 'b1[:,:](f8[:,:], f8[:,:], f8[:,:], f8[:], f8[:], f8[:], b1[:,:])')
+#@cc.export('triplet_parallelogram', 'b1[:,:](f8[:,:], f8[:,:], f8[:,:], f8[:], f8[:], f8[:], b1[:,:])')
 
 @numba.jit('b1[:,:](f8[:,:], f8[:,:], f8[:,:], f8[:], f8[:], f8[:], b1[:,:])', nopython=True, parallel = True, cache = True)
 def triplet_parallelogram(theta_1, theta_2, origin, scale, det_x, det_y, trips):
@@ -25,7 +25,7 @@ def triplet_parallelogram(theta_1, theta_2, origin, scale, det_x, det_y, trips):
 
  	return trips
 
-@cc.export('triplet_inverse', 'b1[:,:](f8[:,:], f8[:,:], f8[:,:], f8[:], f8[:], f8[:], b1[:,:])')
+#@cc.export('triplet_inverse', 'b1[:,:](f8[:,:], f8[:,:], f8[:,:], f8[:], f8[:], f8[:], b1[:,:])')
 
 @numba.jit('b1[:,:](f8[:,:], f8[:,:], f8[:,:], f8[:], f8[:], f8[:], b1[:,:])', nopython = True, parallel=True, cache = True)
 def triplet_inverse(theta_1, theta_2, origin, scale, det_x, det_y, trips):
@@ -43,5 +43,3 @@ def triplet_inverse(theta_1, theta_2, origin, scale, det_x, det_y, trips):
 
  	return trips
 	
-if __name__ == "__main__":
-    cc.compile()
