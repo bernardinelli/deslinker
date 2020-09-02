@@ -23,6 +23,11 @@ if __name__ == '__main__':
 	
 	orbitspp = os.getenv('ORBITSPP')
 
+	try:
+		run_grow = bool(int(os.getenv('RUN_GROW')))
+	except:
+		run_grow = False
+
 	output = config['LINKER']['OUTPUT']
 
 	if os.path.exists('triplets/' + output.split('_')[0] + '/'  + output + '_triplets.fits'):
@@ -94,8 +99,9 @@ if __name__ == '__main__':
 
 	print(sys.argv[1] + ' triplets done')
 
-	subprocess.call([orbitspp+'/GrowOrbits', '-transientFile=' + config['LINKER']['CATALOG'], 
-					'-tripletFile=triplets/' + output.split('_')[0] + '/'  + output + '_triplets.fits', 
-					'-orbitFile=orbits/' + output.split('_')[0] + '/'  + output + '_orbits.fits',
-					'-maxFPR=1', '-exposureFile=y6a1.exposures.positions.fits'])
+	if run_grow:
+		subprocess.call([orbitspp+'/GrowOrbits', '-transientFile=' + config['LINKER']['CATALOG'], 
+						'-tripletFile=triplets/' + output.split('_')[0] + '/'  + output + '_triplets.fits', 
+						'-orbitFile=orbits/' + output.split('_')[0] + '/'  + output + '_orbits.fits',
+						'-maxFPR=1', '-minUnique=6', '-exposureFile=y6a1.exposures.positions.fits'])
 
