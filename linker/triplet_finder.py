@@ -98,7 +98,7 @@ def triplet_finder(catalog, pairs, gamma, dgamma, exposures, output):
 
 	for i in keys:
 		print(i)
-		cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 180)
+		cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 365)
 		cond = (cond) & (search_pairs['MJD_OBS_2'] > exposures[i].mjd_mid - 90)
 		evolve = compute_triplets(search_pairs[cond], exposures[i], gamma, dgamma)
 		#evolve.execute()
@@ -165,8 +165,8 @@ def triplet_finder_chunks(catalog, pairs, gamma, dgamma, exposures, output, chun
 
 	for i in keys:
 		print(i)
-		cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 180)
-		cond = (cond) & (search_pairs['MJD_OBS_2'] > exposures[i].mjd_mid - 90)
+		cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 365)
+		cond = (cond) & (search_pairs['MJD_OBS_2'] > exposures[i].mjd_mid - 365)
 		
 		chunk_pairs = search_pairs[cond]
 		del cond 
