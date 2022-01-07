@@ -1,6 +1,6 @@
 ### linker
 
-This repository contains software designed for linking single-night transients found in the Dark Energy Survey data into solar system orbits. The algorithms are described in [Bernardinelli et al 2020 ApJS 247 32](https://iopscience.iop.org/article/10.3847/1538-4365/ab6bd8). 
+This repository contains software designed for linking single-night transients found in the Dark Energy Survey data into solar system orbits. The algorithms are described in [Bernardinelli et al 2020 ApJS 247 32](https://iopscience.iop.org/article/10.3847/1538-4365/ab6bd8) and [Bernardinelli et al 2021 2109.03758](https://arxiv.org/abs/2109.03758). This branch contains modifications for use in the DECam Ecliptic Exploration Project (DEEP).
 
 The Python software presented here also relies heavily on the C++ package [orbitspp](https://github.com/gbernstein/orbitspp). After installation, an environment variable `ORBITSPP` should point to this software.
 
