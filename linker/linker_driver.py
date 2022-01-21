@@ -30,19 +30,6 @@ if __name__ == '__main__':
 
 	output = config['LINKER']['OUTPUT']
 
-	if os.path.exists('triplets/' + output.split('_')[0] + '/'  + output + '_triplets.fits'):
-		print(output + ' triplets already done')
-		if os.path.exists('orbits/' + output.split('_')[0] + '/' + output + '_orbits.fits'):
-			print(output + ' orbits already done')
-			sys.exit()
-		else:
-			subprocess.call([orbitspp+'/GrowOrbits', '-transientFile=' + config['LINKER']['CATALOG'], 
-				'-tripletFile=triplets/' + output.split('_')[0] + '/' + output + '_triplets.fits', 
-				'-orbitFile=orbits/' + output.split('_')[0] + '/'  + output + '_orbits.fits',
-				'-maxFPR=1', '-exposureFile=' + config['LINKER']['EXPOSURE_LIST']])
-
-			sys.exit()
-
 
 	ra_center = float(config['LINKER']['RA0'])
 	dec_center = float(config['LINKER']['DEC0'])
@@ -62,7 +49,7 @@ if __name__ == '__main__':
 
 	## Loads the catalog
 	print("Loading the catalog")
-	catalog = tb.Table.read(config['LINKER']['YEAR_CATALOG'], 1)
+	catalog = tb.Table.read(config['LINKER']['CATALOG'], 1)
 	#catalog = catalog['RA', 'DEC', 'EXPNUM', 'ERRAWIN_WORLD', 'CATALOG_ID']
 
 
@@ -71,9 +58,4 @@ if __name__ == '__main__':
 
 	print(sys.argv[1] + ' triplets done')
 
-	if run_grow:
-		subprocess.call([orbitspp+'/GrowOrbits', '-transientFile=' + config['LINKER']['CATALOG'], 
-						'-tripletFile=triplets/' + output.split('_')[0] + '/'  + output + '_triplets.fits', 
-						'-orbitFile=orbits/' + output.split('_')[0] + '/'  + output + '_orbits.fits',
-						'-maxFPR=1', '-minUnique=6', '-exposureFile=' + config['LINKER']['EXPOSURE_LIST']])
-
+	

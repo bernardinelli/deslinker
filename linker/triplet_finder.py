@@ -54,9 +54,8 @@ def compute_triplets(evolve, exposure, gamma, dgamma):
 
 	evolve['DIST'] = np.sqrt((evolve['THETA_X'] - exposure.theta[0,0])**2 + (evolve['THETA_Y'] - exposure.theta[0,1])**2)
 
-	cond = evolve['DIST'] < 2.5 * np.pi/180
 	
-	return evolve[cond]
+	return evolve
 
 
 def generate_triplet_output(trip, obj1, obj2, exposure, cat_ids):
@@ -98,11 +97,10 @@ def triplet_finder(catalog, pairs, gamma, dgamma, exposures, output):
 
 	for i in keys:
 		print(i)
-		cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 365)
-		cond = (cond) & (search_pairs['MJD_OBS_2'] > exposures[i].mjd_mid - 90)
-		evolve = compute_triplets(search_pairs[cond], exposures[i], gamma, dgamma)
+		#cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 365)
+		#cond = (cond) & (search_pairs['MJD_OBS_2'] > exposures[i].mjd_mid - 365)
+		evolve = compute_triplets(search_pairs, exposures[i], gamma, dgamma)
 		#evolve.execute()
-		del cond 
 
 		if len(evolve) == 0:
 			#t = tb.Table(names=('ORBITID', 'TRANSIENTID'))

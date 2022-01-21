@@ -22,6 +22,7 @@ class Exposure:
 		self.cs = coordinate_system
 		self.earth_position = self.cs.telescope_centric_r(self.mjd_mid)[0]
 		self.theta = np.array([self.cs.theta_def(self.ra_center, self.dec_center)])
+		self.covariance = np.array([[0,0],[0,0]])
 		self.sigma = coordinate_system.propagate_error_matrix(self.covariance, self.ra_center, self.dec_center)
 		#self.catalog = []
 

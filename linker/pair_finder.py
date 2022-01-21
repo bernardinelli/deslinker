@@ -26,17 +26,15 @@ def construct_exposures(exposure_list, catalog, coordinate_system):
 	'''
 	Builds all kD trees for exposures and detections, with no definition of gamma
 	'''
-	pmc = pixmappy.DESMaps()
 
 	exposures = {}
 	for i in exposure_list:
-		exposures[i['EXPNUM']] = op.Exposure(i, coordinate_system, pmc)
+		exposures[i['EXPNUM']] = op.Exposure(i, coordinate_system)
 		exposures[i['EXPNUM']].find_catalog(catalog)
 		exposures[i['EXPNUM']].det_id = np.int32(exposures[i['EXPNUM']].catalog['OBJID'])
 		exposures[i['EXPNUM']].catalog['SIGMA_POS'] = exposures[i['EXPNUM']].catalog['SIGMA_POS'] + exposures[i['EXPNUM']].sigma
 		#exposures[i['EXPNUM']].det_kdtree()
 
-	del pmc 
 	return exposures
 
 
