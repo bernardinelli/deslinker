@@ -18,7 +18,7 @@ from  scipy.linalg import block_diag
 epsilon = 23.4392811*np.pi/180 #obliquity
 GM = 4*np.pi**2
 
-planets = load('de421.bsp')
+planets = load('de440.bsp')
 earth = planets['earth']
 ctio = Topos('-30.16606 N','70.81489 E', elevation_m=2215)
 observer = earth + ctio 

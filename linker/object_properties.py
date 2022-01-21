@@ -3,7 +3,6 @@ import numpy as np
 from scipy import spatial
 from  skyfield.api import load, Topos
 from astropy.time import Time
-from pixmappy import DESMaps
 from itertools import chain
 
 
@@ -12,7 +11,7 @@ class Exposure:
 	'''
 	Corresponds to an exposure, with the correspondent catalog, covariance/correlation matrix, Earth position and kD tree
 	'''
-	def __init__(self, table, coordinate_system, pmc = DESMaps()):
+	def __init__(self, table, coordinate_system):
 		self.expnum = table['EXPNUM']
 		self.ra_center = table['RA']
 		self.dec_center = table['DEC']
@@ -23,9 +22,7 @@ class Exposure:
 		self.cs = coordinate_system
 		self.earth_position = self.cs.telescope_centric_r(self.mjd_mid)[0]
 		self.theta = np.array([self.cs.theta_def(self.ra_center, self.dec_center)])
-		self.covariance = pmc.getCovariance(self.expnum) * (1./3600)**2 * (1./1000)**2 * (np.pi/180)**2
 		self.sigma = coordinate_system.propagate_error_matrix(self.covariance, self.ra_center, self.dec_center)
-		self.wcs_warning = pmc.covarianceWarning(self.expnum)
 		#self.catalog = []
 
 	def __str__(self):
