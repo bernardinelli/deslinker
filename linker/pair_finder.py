@@ -111,9 +111,7 @@ def find_pairs(exposures, gamma, dgamma):
 
 	for i in np.arange(0,len(keys)):
 		for j in np.arange(i+1, len(keys)):
-			if exposures[keys[j]].mjd - exposures[keys[i]].mjd > 365:
-				break
-			elif exposures[keys[j]].mjd - exposures[keys[i]].mjd < 1:
+			if exposures[keys[j]].mjd - exposures[keys[i]].mjd < 1:
 				continue
 			else:
 				d_0 = 1.1*om.max_proper(gamma, exposures[keys[i]].mjd, exposures[keys[j]].mjd)

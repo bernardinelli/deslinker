@@ -88,7 +88,7 @@ def triplet_finder(catalog, pairs, gamma, dgamma, exposures, output):
 	
 
 	#pairs['DELTA_T'] =   (pairs['MJD_OBS_2'] - pairs['MJD_OBS_1'])/365.25
-	search_pairs = pairs[pairs['DELTA_T'] > 0.08/365.25]
+	search_pairs = pairs[pairs['DELTA_T'] > 0.2/365.25]
 	del pairs 
 
 	gc.collect()
@@ -97,9 +97,10 @@ def triplet_finder(catalog, pairs, gamma, dgamma, exposures, output):
 
 	for i in keys:
 		print(i)
+		cond = (search_pairs['MJD_OBS_1'] != exposures[i].mjd_mid) & (search_pairs['MJD_OBS_2'] != exposures[i].mjd_mid)
 		#cond = (search_pairs['MJD_OBS_2'] < exposures[i].mjd_mid) & (search_pairs['MJD_OBS_1'] > exposures[i].mjd_mid - 365)
 		#cond = (cond) & (search_pairs['MJD_OBS_2'] > exposures[i].mjd_mid - 365)
-		evolve = compute_triplets(search_pairs, exposures[i], gamma, dgamma)
+		evolve = compute_triplets(search_pairs[cond], exposures[i], gamma, dgamma)
 		#evolve.execute()
 
 		if len(evolve) == 0:
