@@ -54,7 +54,7 @@ class CoordinateSystem:
 		else:
 			self.r0 = r0
 
-		self.tdb0 = Time(self.t0, format='mjd').tdb.byear - 2000
+		self.tdb0 = Time(self.t0, format='mjd').tdb.jyear - 2000
 		
 	def earth_position(self, t):
 		'''
