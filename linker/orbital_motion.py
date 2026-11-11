@@ -20,7 +20,8 @@ GM = 4*np.pi**2
 
 planets = load('de421.bsp')
 earth = planets['earth']
-ctio = Topos('-30.16606 N','70.81489 E', elevation_m=2215)
+# CTIO (Blanco) is at 30.166 S, 70.815 W. Topos('70.81489 E') put the observer in the eastern hemisphere.
+ctio = Topos(latitude_degrees=-30.16606, longitude_degrees=-70.81489, elevation_m=2215)
 observer = earth + ctio 
 
 time_skyfield = load.timescale(0)  
@@ -108,7 +109,7 @@ class CoordinateSystem:
 		'''
 		l0 = self.l0
 		b0 = self.b0
-		R_bl = np.array([[-np.sin(l0), np.cos(l0), 0],[-np.cos(l0)*np.sin(b0), -np.sin(l0)*np.sin(b0), np.cos(l0)],[np.cos(l0)*np.cos(b0), np.sin(l0)*np.cos(b0), np.sin(l0)]])
+		R_bl = np.array([[-np.sin(l0), np.cos(l0), 0],[-np.cos(l0)*np.sin(b0), -np.sin(l0)*np.sin(b0), np.cos(b0)],[np.cos(l0)*np.cos(b0), np.sin(l0)*np.cos(b0), np.sin(b0)]])
 
 		x = R_bl.dot(x)
 		vel = R_bl.dot(vel)
@@ -161,7 +162,7 @@ def earth_position(date, b0, l0, observer = observer):
 	by an angle :math:`(b_0, \\ell_0)`
 	'''
 	time =  time_skyfield.from_astropy(Time(date, format='mjd', scale='utc'))
-	R_bl = np.array([[-np.sin(l0), np.cos(l0), 0],[-np.cos(l0)*np.sin(b0), -np.sin(l0)*np.sin(b0), np.cos(l0)],[np.cos(l0)*np.cos(b0), np.sin(l0)*np.cos(b0), np.sin(l0)]])
+	R_bl = np.array([[-np.sin(l0), np.cos(l0), 0],[-np.cos(l0)*np.sin(b0), -np.sin(l0)*np.sin(b0), np.cos(b0)],[np.cos(l0)*np.cos(b0), np.sin(l0)*np.cos(b0), np.sin(b0)]])
 	
 	
 	return np.einsum('ij, j...', R_bl, observer.at(time).ecliptic_position().au)
@@ -264,7 +265,7 @@ def sun_position(date, cs):
 	Uses the skyfield library to read a JPL ephemeris and find the position of the Sun rotated by an angle :math:`(b_0, \\ell_0)`
 	'''
 	time =  time_skyfield.from_astropy(Time(date, format='mjd', scale='utc'))
-	#R_bl = np.array([[-np.sin(l0), np.cos(l0), 0],[-np.cos(l0)*np.sin(b0), -np.sin(l0)*np.sin(b0), np.cos(l0)],[np.cos(l0)*np.cos(b0), np.sin(l0)*np.cos(b0), np.sin(l0)]])
+	#R_bl = np.array([[-np.sin(l0), np.cos(l0), 0],[-np.cos(l0)*np.sin(b0), -np.sin(l0)*np.sin(b0), np.cos(b0)],[np.cos(l0)*np.cos(b0), np.sin(l0)*np.cos(b0), np.sin(b0)]])
 
 	x = cs.ecliptic_to_telescope(sun.at(time).ecliptic_position().au)[0]
 	return x
